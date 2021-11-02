@@ -1,0 +1,16 @@
+mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 172.31.24.47:6443 --token 38vod6.6xanrt45ujwvfvi4 \
+	--discovery-token-ca-cert-hash sha256:cd2fa9639635ad8252a6b9d1e0928818f4d4d5013ec4836f130e71984dc31f7e 
